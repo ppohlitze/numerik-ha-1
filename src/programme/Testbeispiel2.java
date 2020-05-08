@@ -17,18 +17,21 @@ public class Testbeispiel2 {
          Matrix p2 = new Matrix(3, 1);
          p2.setCoefficient(0, 0, 8.0);
          p2.setCoefficient(1, 0, 4.0);
-         p2.setCoefficient(2, 0, 4.0); //add value here
+         p2.setCoefficient(2, 0, 3.5); //add value here
 
          Matrix p3 = new Matrix(3, 1);
          p3.setCoefficient(0, 0, 3.5);
          p3.setCoefficient(1, 0, 4.0);
-         p3.setCoefficient(2, 0, 3.5); //add value here
+         p3.setCoefficient(2, 0, 3.0); //add value here
 
          Matrix m1 = new Matrix(3, 1);
-         m1.setCoefficient(2, 0, 2.7); //add value here
+         m1.setCoefficient(2, 0, 2.5); //add value here
 
          Matrix m2 = new Matrix(3, 1);
-         m2.setCoefficient(2, 0, 3.1); //add value here
+         m2.setCoefficient(2, 0, 2.6); //add value here
+         
+         Matrix m3 = new Matrix(3, 1);
+         m3.setCoefficient(2, 0, 3.0); //add value here
 
          Markise markise = new Markise(p1, p2, p3, m1, m2);
 
@@ -53,7 +56,7 @@ public class Testbeispiel2 {
          double hoeheV =  HoehenOperationen.berechneHoehe(zWerteV, markise);
          System.out.println("Hoehe von V: "+ hoeheV);
 
-         Matrix gradientV = GradientenOperationen.berechneGradient(markise, hoeheV, zWerteV);
+         Matrix gradientV = GradientenOperationen.berechneGradient(markise, m3.getCoefficient(2, 0), zWerteV);
          System.out.println("Gradient von V: "+ gradientV.getCoefficient(0,0) +"\t"+ gradientV.getCoefficient(0,1));
     }
 }

@@ -6,7 +6,7 @@ import modell.Markise;
 
 public abstract class GradientenOperationen {
 
-    public static Matrix berechneGradient(Markise markise, double hoeheV, Matrix zWerte) {
+    public static Matrix berechneGradient(Markise markise, double hoeheM3, Matrix zWerte) {
 
         Matrix steutzwerteVektor = new Matrix(1, 6);
         steutzwerteVektor.setCoefficient(0, 0, markise.getP1().getCoefficient(2, 0));
@@ -14,7 +14,7 @@ public abstract class GradientenOperationen {
         steutzwerteVektor.setCoefficient(0, 2, markise.getP3().getCoefficient(2, 0));
         steutzwerteVektor.setCoefficient(0, 3, markise.getM1().getCoefficient(2, 0));
         steutzwerteVektor.setCoefficient(0, 4, markise.getM2().getCoefficient(2, 0));
-        steutzwerteVektor.setCoefficient(0, 5, hoeheV);
+        steutzwerteVektor.setCoefficient(0, 5, hoeheM3);
 
         Matrix ableitungGnachN = berechneAbleitungGnachN(markise);
 

@@ -29,6 +29,9 @@ public class Testbeispiel1 {
 
         Matrix m2 = new Matrix(3, 1);
         m2.setCoefficient(2, 0, 3.1);
+        
+        Matrix m3 = new Matrix(3, 1);
+        m3.setCoefficient(2, 0, 3.2);
 
         Markise markise = new Markise(p1, p2, p3, m1, m2);
 
@@ -53,7 +56,7 @@ public class Testbeispiel1 {
         double hoeheV = HoehenOperationen.berechneHoehe(zWerteV, markise);
         System.out.println("Hoehe von V: "+ hoeheV);
 
-        Matrix gradientV = GradientenOperationen.berechneGradient(markise, hoeheV, zWerteV);
+        Matrix gradientV = GradientenOperationen.berechneGradient(markise, m3.getCoefficient(2, 0), zWerteV);
         System.out.println("Gradient von V: "+ gradientV.getCoefficient(0,0) +"\t"+ gradientV.getCoefficient(0,1));
     }
 }
