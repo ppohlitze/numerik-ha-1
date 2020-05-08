@@ -43,7 +43,7 @@ public class Testbeispiel2 {
          double hoeheW = HoehenOperationen.berechneHoehe(zWerteW, markise);
          System.out.println("Hoehe von W: "+ hoeheW);
 
-         Matrix gradientW = GradientenOperationen.berechneGradient(markise, hoeheW, zWerteW);
+         Matrix gradientW = GradientenOperationen.berechneGradient(markise, m3.getCoefficient(2, 0), zWerteW);
          System.out.println("Gradient von W: "+ gradientW.getCoefficient(0,0) +"\t"+ gradientW.getCoefficient(0,1));
 
          System.out.println("---------------------------------------------");

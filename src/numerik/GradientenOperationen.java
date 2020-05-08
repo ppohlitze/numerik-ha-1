@@ -8,13 +8,13 @@ public abstract class GradientenOperationen {
 
     public static Matrix berechneGradient(Markise markise, double hoeheM3, Matrix zWerte) {
 
-        Matrix steutzwerteVektor = new Matrix(1, 6);
-        steutzwerteVektor.setCoefficient(0, 0, markise.getP1().getCoefficient(2, 0));
-        steutzwerteVektor.setCoefficient(0, 1, markise.getP2().getCoefficient(2, 0));
-        steutzwerteVektor.setCoefficient(0, 2, markise.getP3().getCoefficient(2, 0));
-        steutzwerteVektor.setCoefficient(0, 3, markise.getM1().getCoefficient(2, 0));
-        steutzwerteVektor.setCoefficient(0, 4, markise.getM2().getCoefficient(2, 0));
-        steutzwerteVektor.setCoefficient(0, 5, hoeheM3);
+        Matrix stuetzwerteVektor = new Matrix(1, 6);
+        stuetzwerteVektor.setCoefficient(0, 0, markise.getP1().getCoefficient(2, 0));
+        stuetzwerteVektor.setCoefficient(0, 1, markise.getP2().getCoefficient(2, 0));
+        stuetzwerteVektor.setCoefficient(0, 2, markise.getP3().getCoefficient(2, 0));
+        stuetzwerteVektor.setCoefficient(0, 3, markise.getM1().getCoefficient(2, 0));
+        stuetzwerteVektor.setCoefficient(0, 4, markise.getM2().getCoefficient(2, 0));
+        stuetzwerteVektor.setCoefficient(0, 5, hoeheM3);
 
         Matrix ableitungGnachN = berechneAbleitungGnachN(markise);
 
@@ -22,7 +22,7 @@ public abstract class GradientenOperationen {
 
         Matrix ableitungFnachG = berechneAbleitungFnachG(ableitungNnachG, zWerte);
 
-        return MatrixOperations.multiply(steutzwerteVektor, ableitungFnachG);
+        return MatrixOperations.multiply(stuetzwerteVektor, ableitungFnachG);
     }
 
     private static Matrix berechneAbleitungGnachN(Markise markise) {
