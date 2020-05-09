@@ -40,23 +40,23 @@ public class Testbeispiel1 {
         zWerteW.setCoefficient(1, 0, 1./3.);
         zWerteW.setCoefficient(2,0, 1./3.);
 
-        double hoeheW = HoehenOperationen.berechneHoehe(zWerteW, markise);
-        System.out.println("Hoehe von W: "+ hoeheW);
-
-        Matrix gradientW = GradientenOperationen.berechneGradient(markise, m3.getCoefficient(2, 0), zWerteW);
-        System.out.println("Gradient von W: "+ gradientW.getCoefficient(0,0) +"\t"+ gradientW.getCoefficient(0,1));
-
-        System.out.println("---------------------------------------------");
-
         Matrix zWerteV = new Matrix(3, 1);
         zWerteV.setCoefficient(0, 0, 1./2.);
         zWerteV.setCoefficient(1, 0, 0);
         zWerteV.setCoefficient(2,0, 1./2.);
 
-        double hoeheV = HoehenOperationen.berechneHoehe(zWerteV, markise);
-        System.out.println("Hoehe von V: "+ hoeheV);
+        double hoeheW = HoehenOperationen.berechneHoehe(zWerteW, markise);
+        Matrix gradientW = GradientenOperationen.berechneGradient(markise, m3.getCoefficient(2, 0), zWerteW);
 
+        double hoeheV = HoehenOperationen.berechneHoehe(zWerteV, markise);
         Matrix gradientV = GradientenOperationen.berechneGradient(markise, m3.getCoefficient(2, 0), zWerteV);
+
+        System.out.println("---------------------------------------------");
+        System.out.println("Hoehe von W: "+ hoeheW);
+        System.out.println("Gradient von W: "+ gradientW.getCoefficient(0,0) +"\t"+ gradientW.getCoefficient(0,1));
+        System.out.println("---------------------------------------------");
+        System.out.println("Hoehe von V: "+ hoeheV);
         System.out.println("Gradient von V: "+ gradientV.getCoefficient(0,0) +"\t"+ gradientV.getCoefficient(0,1));
+        System.out.println("---------------------------------------------");
     }
 }

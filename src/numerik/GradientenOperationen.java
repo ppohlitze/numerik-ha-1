@@ -28,15 +28,12 @@ public abstract class GradientenOperationen {
     private static Matrix berechneAbleitungGnachN(Markise markise) {
 
         Matrix einheitsmatrix = new Matrix(3, 3);
-        einheitsmatrix.setCoefficient(0,0, 1);
-        einheitsmatrix.setCoefficient(0, 1, 0);
-        einheitsmatrix.setCoefficient(0, 2,0);
-        einheitsmatrix.setCoefficient(1, 0, 0);
-        einheitsmatrix.setCoefficient(1, 1, 1);
-        einheitsmatrix.setCoefficient(1, 2, 0);
-        einheitsmatrix.setCoefficient(2, 0, 0);
-        einheitsmatrix.setCoefficient(2, 1, 0);
-        einheitsmatrix.setCoefficient(2, 2, 1);
+        double[] zeile1 = {1, 0, 0};
+        double[] zeile2 = {0, 1, 0};
+        double[] zeile3 = {0, 0, 1};
+        einheitsmatrix.setRow(0, zeile1);
+        einheitsmatrix.setRow(1, zeile2);
+        einheitsmatrix.setRow(2, zeile3);
 
         Matrix stuetzwerte = new Matrix(2, 3);
         stuetzwerte.setCoefficient(0, 0, markise.getP1().getCoefficient(0, 0));
@@ -68,25 +65,7 @@ public abstract class GradientenOperationen {
 
     private static Matrix berechneAbleitungFnachG(Matrix ableitungGnachN, Matrix zWerte) {
 
-        Matrix formfunktionsvektor = new Matrix(6, 3);
-        formfunktionsvektor.setCoefficient(0,0, (4 * zWerte.getCoefficient(0,0) - 1));
-        formfunktionsvektor.setCoefficient(0,1, 0);
-        formfunktionsvektor.setCoefficient(0,2, 0);
-        formfunktionsvektor.setCoefficient(1,0, 0);
-        formfunktionsvektor.setCoefficient(1,1, (4 * zWerte.getCoefficient(1,0) - 1));
-        formfunktionsvektor.setCoefficient(1,2, 0);
-        formfunktionsvektor.setCoefficient(2,0, 0);
-        formfunktionsvektor.setCoefficient(2,1, 0);
-        formfunktionsvektor.setCoefficient(2,2, (4 * zWerte.getCoefficient(2,0) - 1));
-        formfunktionsvektor.setCoefficient(3,0, (4 * zWerte.getCoefficient(1,0)));
-        formfunktionsvektor.setCoefficient(3,1, (4 * zWerte.getCoefficient(0,0)));
-        formfunktionsvektor.setCoefficient(3,2, 0);
-        formfunktionsvektor.setCoefficient(4,0, 0);
-        formfunktionsvektor.setCoefficient(4,1, (4 * zWerte.getCoefficient(2,0)));
-        formfunktionsvektor.setCoefficient(4,2, (4 * zWerte.getCoefficient(1,0)));
-        formfunktionsvektor.setCoefficient(5,0, (4 * zWerte.getCoefficient(2,0)));
-        formfunktionsvektor.setCoefficient(5,1, 0);
-        formfunktionsvektor.setCoefficient(5,2, (4 * zWerte.getCoefficient(0,0)));
+        Matrix formfunktionsvektor = Dreieck2DQuadratisch.berechneAbleitungS(zWerte);
 
         return MatrixOperations.multiply(formfunktionsvektor, ableitungGnachN);
     }
