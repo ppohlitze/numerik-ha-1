@@ -9,6 +9,18 @@ import bitub.matrix.Matrix;
  */
 public abstract class Dreieck2DQuadratisch {
 
+    public static Matrix erstelleSq(Matrix zWerte) {
+        Matrix sq = new Matrix(6, 1);
+        sq.setCoefficient(0,0, (zWerte.getCoefficient(0, 0) * ((2 * zWerte.getCoefficient(0, 0)) - 1)));
+        sq.setCoefficient(1,0, (zWerte.getCoefficient(1, 0) * ((2 * zWerte.getCoefficient(1, 0)) - 1)));
+        sq.setCoefficient(2,0, (zWerte.getCoefficient(2, 0) * ((2 * zWerte.getCoefficient(2, 0)) - 1)));
+        sq.setCoefficient(3,0, (4 * zWerte.getCoefficient(0, 0) * zWerte.getCoefficient(1, 0)));
+        sq.setCoefficient(4,0, (4 * zWerte.getCoefficient(1, 0) * zWerte.getCoefficient(2, 0)));
+        sq.setCoefficient(5,0, (4 * zWerte.getCoefficient(2, 0) * zWerte.getCoefficient(0, 0)));
+
+        return sq;
+    }
+
 	/**
 	 * Methode zur Erstellung der quadratisch analytisch abgeleiten Formfunktion
 	 * @param zWerte, zWerte = normalisierte Koordinaten von einem beliebigen Punkt

@@ -63,7 +63,7 @@ public abstract class GradientenOperationen {
     	 * Diese Matrix soll den linearen analytisch abgeleiteten Formfunktionsvektor, also die 
     	 * Einheitsmatrix darstellen
     	 */
-        Matrix sLz = Dreieck2DLinear.erstelleSLz();
+        Matrix sLz = Dreieck2DLinear.erstelleSlz();
         
 
         //Erzeuge eine Matrix mit 2 Zeilen und 3 Spalten

@@ -68,20 +68,20 @@ public class Testbeispiel1 {
          * Inhalt ist der x3-Werte bzw. die Höhe von M2
          */
         m2.setCoefficient(2, 0, 3.1);
-        
-        //Erzeuge Matrix mit 3 Zeilen und 1 Spalte
-        Matrix m3 = new Matrix(3, 1);
-        
-        /*
-         * Festlegung des Inhaltes der zuvor erstellten Matrix,
-         * Inhalt ist der x3-Werte bzw. die Höhe von M3
-         * Die Höhe von M3 ist im 1. Testbeispiel die Höhe von V, da V der 
-         * Streckenmittelpunkt zw. P1 und P3 ist.
-         */
-        m3.setCoefficient(2, 0, 3.2);
 
-        //Erzeuge eine Matrix, die als Inhalt die x-Werte von P1 bis M3 übergeben bekommt 
-        Markise markise = new Markise(p1, p2, p3, m1, m2, m3);
+        //Erzeuge eine Matrix, die als Inhalt die x-Werte von P1 bis M2 übergeben bekommt
+        Markise markise = new Markise(p1, p2, p3, m1, m2);
+
+        //Erzeuge Matrix mit 3 Zeilen und 1 Spalte für die z-Werte bzw. die normalisierten Koordinaten von V
+        Matrix zWerteV = new Matrix(3, 1);
+
+        /*
+         * Festlegung des Inhaltes der zuvor erzeugten Matrix
+         * Inhalt sind die normalisierten Koordinaten von V
+         */
+        zWerteV.setCoefficient(0, 0, 1./2.);
+        zWerteV.setCoefficient(1, 0, 0);
+        zWerteV.setCoefficient(2,0, 1./2.);
 
         //Erzeuge Matrix mit 3 Zeilen und 1 Spalte für die z-Werte bzw. die normalisierten Koordinaten von W
         Matrix zWerteW = new Matrix(3, 1);
@@ -94,28 +94,17 @@ public class Testbeispiel1 {
         zWerteW.setCoefficient(1, 0, 1./3.);
         zWerteW.setCoefficient(2,0, 1./3.);
 
-        //Erzeuge Matrix mit 3 Zeilen und 1 Spalte für die z-Werte bzw. die normalisierten Koordinaten von V
-        Matrix zWerteV = new Matrix(3, 1);
-        
-        /*
-         * Festlegung des Inhaltes der zuvor erzeugten Matrix
-         * Inhalt sind die normalisierten Koordinaten von V
-         */
-        zWerteV.setCoefficient(0, 0, 1./2.);
-        zWerteV.setCoefficient(1, 0, 0);
-        zWerteV.setCoefficient(2,0, 1./2.);
+        //Erzeuge eine Variable in der das Ergebnis der Höhenberechnung von V gespeichert werden soll
+        double hoeheV = HoehenOperationen.berechneHoehe(zWerteV, markise);
+
+        //Erzeuge eine Matrix in der das Ergebnis der Gradientenberechnung von V gespeichert werden soll
+        Matrix gradientV = GradientenOperationen.berechneGradient(markise, zWerteV);
 
         //Erzeuge eine Variable in der das Ergebnis der Höhenberechnung von W gespeichert werden soll
         double hoeheW = HoehenOperationen.berechneHoehe(zWerteW, markise);
         
         //Erzeuge eine Matrix in der das Ergebnis der Gradientenberechnung von W gespeichert werden soll
         Matrix gradientW = GradientenOperationen.berechneGradient(markise, zWerteW);
-
-        //Erzeuge eine Variable in der das Ergebnis der Höhenberechnung von V gespeichert werden soll
-        double hoeheV = HoehenOperationen.berechneHoehe(zWerteV, markise);
-        
-        //Erzeuge eine Matrix in der das Ergebnis der Gradientenberechnung von V gespeichert werden soll
-        Matrix gradientV = GradientenOperationen.berechneGradient(markise, zWerteV);
 
         //Ausgabe der Höhen und Gradienten von W und V auf der Konsole
         System.out.println("Testbeispiel 1:");

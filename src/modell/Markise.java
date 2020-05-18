@@ -36,6 +36,14 @@ public class Markise {
         this.m2 = m2;
         this.m3 = m3;
     }
+
+    public Markise(Matrix p1, Matrix p2, Matrix p3, Matrix m1, Matrix m2) {
+		this.p1 = p1;
+		this.p2 = p2;
+		this.p3 = p3;
+		this.m1 = m1;
+		this.m2 = m2;
+	}
     
     /**
      * gibt den Wert von P1 zurück
@@ -83,5 +91,9 @@ public class Markise {
 	 */
 	public Matrix getM3() {
 		return m3;
+	}
+
+	public void setM3(Matrix m3) {
+		this.m3 = m3;
 	}
 }
