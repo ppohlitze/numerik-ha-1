@@ -72,6 +72,17 @@ public class Testbeispiel1 {
         //Erzeuge eine Matrix, die als Inhalt die x-Werte von P1 bis M2 übergeben bekommt
         Markise markise = new Markise(p1, p2, p3, m1, m2);
 
+        //Erzeuge Matrix mit 3 Zeilen und 1 Spalte für die z-Werte bzw. die normalisierten Koordinaten von W
+        Matrix zWerteW = new Matrix(3, 1);
+
+        /*
+         * Festlegung des Inhaltes der zuvor erzeugten Matrix
+         * Inhalt sind die normalisierten Koordinaten von W
+         */
+        zWerteW.setCoefficient(0, 0, 1./3.);
+        zWerteW.setCoefficient(1, 0, 1./3.);
+        zWerteW.setCoefficient(2,0, 1./3.);
+
         //Erzeuge Matrix mit 3 Zeilen und 1 Spalte für die z-Werte bzw. die normalisierten Koordinaten von V
         Matrix zWerteV = new Matrix(3, 1);
 
@@ -83,28 +94,25 @@ public class Testbeispiel1 {
         zWerteV.setCoefficient(1, 0, 0);
         zWerteV.setCoefficient(2,0, 1./2.);
 
-        //Erzeuge Matrix mit 3 Zeilen und 1 Spalte für die z-Werte bzw. die normalisierten Koordinaten von W
-        Matrix zWerteW = new Matrix(3, 1);
-        
-        /*
-         * Festlegung des Inhaltes der zuvor erzeugten Matrix
-         * Inhalt sind die normalisierten Koordinaten von W
-         */
-        zWerteW.setCoefficient(0, 0, 1./3.);
-        zWerteW.setCoefficient(1, 0, 1./3.);
-        zWerteW.setCoefficient(2,0, 1./3.);
+        Matrix m3 = new Matrix(3, 1);
 
-        //Erzeuge eine Variable in der das Ergebnis der Höhenberechnung von V gespeichert werden soll
-        double hoeheV = HoehenOperationen.berechneHoehe(zWerteV, markise);
+        m3.setCoefficient(0, 0, 0);
+        m3.setCoefficient(1, 0, 0);
+        m3.setCoefficient(2, 0, HoehenOperationen.berechneX3M3(markise));
 
-        //Erzeuge eine Matrix in der das Ergebnis der Gradientenberechnung von V gespeichert werden soll
-        Matrix gradientV = GradientenOperationen.berechneGradient(markise, zWerteV);
+        markise.setM3(m3);
 
         //Erzeuge eine Variable in der das Ergebnis der Höhenberechnung von W gespeichert werden soll
         double hoeheW = HoehenOperationen.berechneHoehe(zWerteW, markise);
         
         //Erzeuge eine Matrix in der das Ergebnis der Gradientenberechnung von W gespeichert werden soll
         Matrix gradientW = GradientenOperationen.berechneGradient(markise, zWerteW);
+
+        //Erzeuge eine Variable in der das Ergebnis der Höhenberechnung von V gespeichert werden soll
+        double hoeheV = HoehenOperationen.berechneHoehe(zWerteV, markise);
+
+        //Erzeuge eine Matrix in der das Ergebnis der Gradientenberechnung von V gespeichert werden soll
+        Matrix gradientV = GradientenOperationen.berechneGradient(markise, zWerteV);
 
         //Ausgabe der Höhen und Gradienten von W und V auf der Konsole
         System.out.println("Testbeispiel 1:");

@@ -10,6 +10,29 @@ import modell.Markise;
  *
  */
 public abstract class HoehenOperationen {
+
+	public static double berechneX3M3(Markise markise) {
+
+		Matrix zWerteM3 = new Matrix(3, 1);
+
+		zWerteM3.setCoefficient(0, 0, 1. / 2.);
+		zWerteM3.setCoefficient(1, 0, 0);
+		zWerteM3.setCoefficient(2, 0, 1. / 2.);
+
+		//Erzeuge eine Matrix mit 1 Zeile und 3 Spalten
+		Matrix ueT = new Matrix(1, 3);
+
+		/*
+		 * Festlegung des Inhaltes der zuvor erzeugten Matrix,
+		 * Inhalt sind die Höhen bzw. die x3-Werte der Eckpunkte P1, P2 und P3
+		 */
+		ueT.setCoefficient(0, 0, markise.getP1().getCoefficient(2, 0));
+		ueT.setCoefficient(0, 1, markise.getP2().getCoefficient(2, 0));
+		ueT.setCoefficient(0, 2, markise.getP3().getCoefficient(2, 0));
+
+		Matrix sl = Dreieck2DLinear.erstelleSl(zWerteM3);
+		return MatrixOperations.multiply(ueT, sl).getCoefficient(0,0);
+	}
 	
 	/**
 	 * Methode zur Berechnung der Höhe bzw. der x3-Werte eines beliebigen Punktes mit Hilfe von Interpolation
@@ -19,52 +42,26 @@ public abstract class HoehenOperationen {
 	 * eines beliebigen Punktes
 	 */
 	public static double berechneHoehe(Matrix zWerte, Markise markise) {
+		//Erzeuge eine Matrix mit 1 Zeile und 3 Spalten
+		Matrix ueT = new Matrix(1, 6);
 
-		Matrix ueT;
-		double hoehe = 0;
+		/*
+		 * Festlegung des Inhaltes der zuvor erzeugten Matrix,
+		 * Inhalt sind die Höhen bzw. die x3-Werte der Eckpunkte P1, P2 und P3
+		 */
+		ueT.setCoefficient(0, 0, markise.getP1().getCoefficient(2, 0));
+		ueT.setCoefficient(0, 1, markise.getP2().getCoefficient(2, 0));
+		ueT.setCoefficient(0, 2, markise.getP3().getCoefficient(2, 0));
+		ueT.setCoefficient(0, 3, markise.getM1().getCoefficient(2, 0));
+		ueT.setCoefficient(0, 4, markise.getM2().getCoefficient(2, 0));
+		ueT.setCoefficient(0, 5, markise.getM3().getCoefficient(2, 0));
 
-		if (markise.getM3() != null) {
-			//Erzeuge eine Matrix mit 1 Zeile und 3 Spalten
-			ueT = new Matrix(1, 6);
-
-			/*
-			 * Festlegung des Inhaltes der zuvor erzeugten Matrix,
-			 * Inhalt sind die Höhen bzw. die x3-Werte der Eckpunkte P1, P2 und P3
-			 */
-			ueT.setCoefficient(0, 0, markise.getP1().getCoefficient(2, 0));
-			ueT.setCoefficient(0, 1, markise.getP2().getCoefficient(2, 0));
-			ueT.setCoefficient(0, 2, markise.getP3().getCoefficient(2, 0));
-			ueT.setCoefficient(0, 3, markise.getM1().getCoefficient(2, 0));
-			ueT.setCoefficient(0, 4, markise.getM2().getCoefficient(2, 0));
-			ueT.setCoefficient(0, 5, markise.getM3().getCoefficient(2, 0));
-
-			Matrix sq = Dreieck2DQuadratisch.erstelleSq(zWerte);
-
-			hoehe = MatrixOperations.multiply(ueT, sq).getCoefficient(0,0);
-		} else {
-			//Erzeuge eine Matrix mit 1 Zeile und 3 Spalten
-			ueT = new Matrix(1, 3);
-
-			/*
-			 * Festlegung des Inhaltes der zuvor erzeugten Matrix,
-			 * Inhalt sind die Höhen bzw. die x3-Werte der Eckpunkte P1, P2 und P3
-			 */
-			ueT.setCoefficient(0, 0, markise.getP1().getCoefficient(2, 0));
-			ueT.setCoefficient(0, 1, markise.getP2().getCoefficient(2, 0));
-			ueT.setCoefficient(0, 2, markise.getP3().getCoefficient(2, 0));
-
-			Matrix sl = Dreieck2DLinear.erstelleSl(zWerte);
-			hoehe = MatrixOperations.multiply(ueT, sl).getCoefficient(0,0);
-
-			Matrix m3 = new Matrix(3, 1);
-			m3.setCoefficient(2, 0, hoehe);
-			markise.setM3(m3);
-		}
+		Matrix sq = Dreieck2DQuadratisch.erstelleSq(zWerte);
 
         /*
          * Rückgabe ist die Höhe eines beliebigen Punkten bzw. das Ergebnis der Multiplikation der Höhen der 
          * Eckpunkte mit den normalisierten Koordinaten des beliebigen Punktes
          */
-        return hoehe;
+        return MatrixOperations.multiply(ueT, sq).getCoefficient(0,0);
     }
 }

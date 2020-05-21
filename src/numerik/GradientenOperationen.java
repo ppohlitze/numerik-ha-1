@@ -86,7 +86,7 @@ public abstract class GradientenOperationen {
 
     /**
      * Methode zur Berechnung der Ableitung der normalisierten Koordinaten nach den globalen Koordinaten
-     * @param ableitungGnachN, Ergebnis der zuvor berechneten Methode
+     * @param xz, Ergebnis der zuvor berechneten Methode
      * @return Ergebnis der Multiplikation der Hilfsmatrix mit dem Ergebnis der Multiplikation
      * der Hilfsmatrix mit der ableutungGnachN
      */
@@ -115,7 +115,7 @@ public abstract class GradientenOperationen {
 
     /**
      * Methode zur Berechnung der Ableitung der Formfunktion nach globalen Koordinaten
-     * @param ableitungNnachG, Ergebnis der zuvor berechneten Methode
+     * @param zx, Ergebnis der zuvor berechneten Methode
      * @param zWerte, zWerte = normalisierte Koordinaten von einem beliebigen Punkt
      * @return Ergebnis der Multiplikation der quadratisch analytisch abgeleiteten Formfunktion 
      * mit dem Ergebnis der zuvor berechneten Methode

@@ -19,24 +19,14 @@ public class Markise {
     private Matrix m2;
     private Matrix m3;
 
-    /**
-     * Konstruktor für eine Markise
-     * @param p1
-     * @param p2
-     * @param p3
-     * @param m1
-     * @param m2
-     * @param m3
-     */
-    public Markise(Matrix p1, Matrix p2, Matrix p3, Matrix m1, Matrix m2, Matrix m3) {
-        this.p1 = p1;
-        this.p2 = p2;
-        this.p3 = p3;
-        this.m1 = m1;
-        this.m2 = m2;
-        this.m3 = m3;
-    }
-
+	/**
+	 * Konstruktor für eine Markise
+	 * @param p1
+	 * @param p2
+	 * @param p3
+	 * @param m1
+	 * @param m2
+	 */
     public Markise(Matrix p1, Matrix p2, Matrix p3, Matrix m1, Matrix m2) {
 		this.p1 = p1;
 		this.p2 = p2;
