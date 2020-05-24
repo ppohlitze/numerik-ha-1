@@ -20,7 +20,8 @@ public class Markise {
     private Matrix m3;
 
 	/**
-	 * Konstruktor für eine Markise
+	 * Konstruktor für eine Markise,
+	 * m3 wird hier nicht berücksichtigt, da m3 hier noch nicht bekannt ist
 	 * @param p1
 	 * @param p2
 	 * @param p3
@@ -83,6 +84,10 @@ public class Markise {
 		return m3;
 	}
 
+	/**
+	 * setzt den Wert von M3
+	 * @param m3
+	 */
 	public void setM3(Matrix m3) {
 		this.m3 = m3;
 	}

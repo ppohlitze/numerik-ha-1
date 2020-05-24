@@ -56,7 +56,7 @@ public class Testbeispiel1 {
         
         /*
          * Festlegung des Inhaltes der zuvor erstellten Matrix,
-         * Inhalt ist der x3-Werte bzw. die Höhe von M1
+         * Inhalt ist der x3-Wert von M1
          */
         m1.setCoefficient(2, 0, 2.7);
         
@@ -65,14 +65,14 @@ public class Testbeispiel1 {
         
         /*
          * Festlegung des Inhaltes der zuvor erstellten Matrix,
-         * Inhalt ist der x3-Werte bzw. die Höhe von M2
+         * Inhalt ist der x3-Wert von M2
          */
         m2.setCoefficient(2, 0, 3.1);
 
-        //Erzeuge eine Matrix, die als Inhalt die x-Werte von P1 bis M2 übergeben bekommt
+        //Erzeuge eine Matrix, die als Inhalt die zuvor erstellten Punkte P1 bis M2 übergeben bekommt
         Markise markise = new Markise(p1, p2, p3, m1, m2);
 
-        //Erzeuge Matrix mit 3 Zeilen und 1 Spalte für die z-Werte bzw. die normalisierten Koordinaten von W
+        //Erzeuge Matrix mit 3 Zeilen und 1 Spalte
         Matrix zWerteW = new Matrix(3, 1);
 
         /*
@@ -83,7 +83,7 @@ public class Testbeispiel1 {
         zWerteW.setCoefficient(1, 0, 1./3.);
         zWerteW.setCoefficient(2,0, 1./3.);
 
-        //Erzeuge Matrix mit 3 Zeilen und 1 Spalte für die z-Werte bzw. die normalisierten Koordinaten von V
+        //Erzeuge Matrix mit 3 Zeilen und 1 Spalte
         Matrix zWerteV = new Matrix(3, 1);
 
         /*
@@ -94,12 +94,18 @@ public class Testbeispiel1 {
         zWerteV.setCoefficient(1, 0, 0);
         zWerteV.setCoefficient(2,0, 1./2.);
 
+        //Erzeuge Matrix mit 3 Zeilen und 1 Spalte
         Matrix m3 = new Matrix(3, 1);
 
+        /*
+         * Festlegung des Inhaltes der zuvor erzeugten Matrix
+         * Inhalt ist (0, 0, zuvor berechnete Höhe von M3)
+         */
         m3.setCoefficient(0, 0, 0);
         m3.setCoefficient(1, 0, 0);
-        m3.setCoefficient(2, 0, HoehenOperationen.berechneX3M3(markise));
+        m3.setCoefficient(2, 0, HoehenOperationen.berechneHoeheM3(markise));
 
+        //weist dem Attribut m3 der Markise die Matrix m3 zu
         markise.setM3(m3);
 
         //Erzeuge eine Variable in der das Ergebnis der Höhenberechnung von W gespeichert werden soll

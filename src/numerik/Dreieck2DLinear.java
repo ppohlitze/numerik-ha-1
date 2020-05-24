@@ -3,19 +3,30 @@ package numerik;
 import bitub.matrix.Matrix;
 
 /**
- * Klasse zur Erstellung der linear analytisch abgeleiten Formfunktion
+ * Klasse zur Erstellung der linearen Formfunktion eines Dreiecks und dessen analytische Ableitung
  * @author pianicklisch
  *
  */
 public abstract class Dreieck2DLinear {
 
+	/**
+	 * Methode zur Erstellung der linearen Formfunktion sl eines Dreiecks
+	 * @param zWerte
+	 * @return lineare Formfunktion sl mit den z-Werten bzw. normalisierten 
+	 * Koordinaten eines beliebigen Punktes
+	 */
     public static Matrix erstelleSl(Matrix zWerte) {
+    	
+    	/*
+    	 * Rückgabe lineare Formfunktion sl der Form mit dem Inhalt 
+    	 * z-Werte bzw. normalisierte Koordinaten eines beliebigen Punktes
+    	 */
         return zWerte;
     }
 	
     /**
-     * Methode zur Erstellung der linear analytisch abgeleiten Formfunktion
-     * @return sLz bzw. Einheitsmatrix
+     * Methode zur Erstellung der linear analytisch abgeleiten Formfunktion slz
+     * @return slz bzw. Einheitsmatrix
      */
 	public static Matrix erstelleSlz() {
 		
@@ -30,7 +41,7 @@ public abstract class Dreieck2DLinear {
         slz.setRow(1, zeile2);
         slz.setRow(2, zeile3);
         
-        //Rückgabe sLz bzw. Einheitsmatrix
+        //Rückgabe slz bzw. Einheitsmatrix
         return slz;
 	}
 }

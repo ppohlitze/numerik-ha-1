@@ -5,27 +5,27 @@ import bitub.matrix.MatrixOperations;
 import modell.Markise;
 
 /**
- * Klasse zur Berechnung des Gradienten an einem beliebigen Punkt mit Hilfe von numerischer Differentation
+ * Klasse zur Berechnung des Gradienten an einem beliebigen Punkt mittels numerischer Differentiation
  * @author pianicklisch
  *
  */
 public abstract class GradientenOperationen {
 
 	/**
-	 * Methode zur Berechnung des Gradienten
+	 * Methode zur Berechnung des Gradienten mittels numerischer Differentiation
 	 * @param markise, mit den Eck- und Streckenmittelpunkten
 	 * @param zWerte, zWerte = normalisierte Koordinaten von einem beliebigen Punkt
-	 * @return der Gradient von einem beliebigen Punkt bzw. das Ergebnis der Multiplikation des Stützwertevektors mit der 
-	 * Ableitung der Formfunktionvektors nach den globalen Koordinaten
+	 * @return der Gradient an einem beliebigen Punkt
+	 * Schritt 4 nach Übung 2
 	 */
     public static Matrix berechneGradient(Markise markise, Matrix zWerte) {
 
-    	//Erzeuge eine Matrix mit 1 Zeile und 6 Spalten
+    	//Erzeuge eine Matrix mit 1 Zeile und 6 Spalten, ueT = Stützwertevektor
         Matrix ueT = new Matrix(1, 6);
         
         /*
-         * Festlegung des Inhalts des Stützwertevektors, 
-         * Inhalt sind die x3-Werte bzw. u-Werte der Eckpunkte und der Streckenmittelpunkte
+         * Festlegung des Inhalts des Stützwertevektors ueT, 
+         * Inhalt sind die x3-Werte bzw. Höhen der Eckpunkte und der Streckenmittelpunkte
          */
         ueT.setCoefficient(0, 0, markise.getP1().getCoefficient(2, 0));
         ueT.setCoefficient(0, 1, markise.getP2().getCoefficient(2, 0));
@@ -34,36 +34,47 @@ public abstract class GradientenOperationen {
         ueT.setCoefficient(0, 4, markise.getM2().getCoefficient(2, 0));
         ueT.setCoefficient(0, 5, markise.getM3().getCoefficient(2, 0));
 
-        //Erzeuge Matrix ableitungGnachN und weise ihr das Ergebnis der Methode berechneAbleitungGnachN zu
+        /*
+         * Erzeuge Matrix xz und weise ihr das Ergebnis der Methode berechneXz zu
+         * xz = Ableitung der globalen nach den normalisierten Koordinaten
+         * Schritt 1 nach Übung 2
+         */
         Matrix xz = berechneXz(markise);
 
-        //Erzeuge Matrix ableitungNnachG und weise ihr das Ergebnis der Methode berechneAbleitungNnachG zu
+        /*
+         * Erzeuge Matrix zx und weise ihr das Ergebnis der Methode berechneZx zu
+         * zx = Ableitung der normalisierten nach den globalen Koordinaten
+         * Schritt 2 nach Übung 2
+         */
         Matrix zx = berechneZx(xz);
 
-        //Erzeuge Matrix ableitungFnachG und weise ihr das Ergebnis der Methode berechneAbleitungFnachG zu
+        /*
+         * Erzeuge Matrix sx und weise ihr das Ergebnis der Methode berechneSx zu
+         * sx = Ableitung der Formfunktionen nach den globalen Koordinaten
+         * Schritt 3 nach Übung 2
+         */
         Matrix sx = berechneSx(zx, zWerte);
 
         /*
-         * Rückgabe des Gradienten an einem beliebigen Punkt bzw. das Ergebnis der Multiplikation des 
-         * Stützwertevektors mit der Ableitung des Formfunktionsvektors nach den globalen Koordinaten
+         * Rückgabe des Gradienten an einem beliebigen Punkt
+         * Schritt 4 nach Übung 2
          */
         return MatrixOperations.multiply(ueT, sx);
     }
 
     /**
-     * Methode zur Berechnung der Ableitung der globalen Koordinaten nach den normalisierten Koordinaten
+     * Methode zur Berechnung von xz = Ableitung der globalen Koordinaten nach den normalisierten
      * @param markise, mit den 3 Eckpunkten
-     * @return Ergebnis der Multiplikation der Stützwertematrix mit der Einheitsmatrix bzw.
-     * dem linear analytisch abgeleiteten Formfunktionsvektor
+     * @return xz = Ableitung der globalen Koordinaten nach den normalisierten
+     * Schritt 1 nach Übung 2
      */
     private static Matrix berechneXz(Markise markise) {
 
     	/*
-    	 * Erzeuge eine Matrix mit 3 Zeilen und 3 Spalten. 
-    	 * Diese Matrix soll den linearen analytisch abgeleiteten Formfunktionsvektor, also die 
-    	 * Einheitsmatrix darstellen
+    	 * Erzeuge eine Matrix slz und speicher in ihr das Ergebnis der Methode erstelleSlz,
+    	 * das Ergebnis ist die 3x3 Einheitsmatrix
     	 */
-        Matrix sLz = Dreieck2DLinear.erstelleSlz();
+        Matrix slz = Dreieck2DLinear.erstelleSlz();
         
 
         //Erzeuge eine Matrix mit 2 Zeilen und 3 Spalten
@@ -77,25 +88,26 @@ public abstract class GradientenOperationen {
         xeT.setCoefficient(1, 1, markise.getP2().getCoefficient(1, 0));
         xeT.setCoefficient(1, 2, markise.getP3().getCoefficient(1, 0));
 
-        /*
-         * Rückgabe von X,z bzw. das Ergebnisses der Multiplikation der Stützwertematrix mit der Einheitsmatrix bzw.
-         * dem linearen analytisch abgeleiteten Formfunktionsvektor
-         */
-        return MatrixOperations.multiply(xeT, sLz);
+        
+        // Rückgabe von xz
+        return MatrixOperations.multiply(xeT, slz);
     }
 
     /**
-     * Methode zur Berechnung der Ableitung der normalisierten Koordinaten nach den globalen Koordinaten
+     * Methode zur Berechnung von zx = Ableitung der normalisierten Koordinaten nach den globalen
      * @param xz, Ergebnis der zuvor berechneten Methode
-     * @return Ergebnis der Multiplikation der Hilfsmatrix mit dem Ergebnis der Multiplikation
-     * der Hilfsmatrix mit der ableutungGnachN
+     * @return zx = Ableitung der normalisierten Koordinaten nach den globalen
+     * Schritt 2 nach Übung 2
      */
     private static Matrix berechneZx(Matrix xz) {
 
     	//Erzeuge Matrix mit 3 Zeilen und 2 Spalten
         Matrix hilfsmatrix = new Matrix(3, 2);
         
-        //Festlegung des Inhaltes der Hilfmatrix
+        /*
+         * Festlegung des Inhaltes der zuvor erstellten Matrix, 
+         * Inhalt ist die nach Koordinaten reduzierte Hilfsmatrix
+         */
         hilfsmatrix.setCoefficient(0,0, 1);
         hilfsmatrix.setCoefficient(0, 1, 0);
         hilfsmatrix.setCoefficient(1, 0,0);
@@ -103,32 +115,31 @@ public abstract class GradientenOperationen {
         hilfsmatrix.setCoefficient(2, 0, -1);
         hilfsmatrix.setCoefficient(2, 1, -1);
 
-        //Erzeuge Matrix xZu und weise ihr das Ergebnis der Multiplikation von ableitungGnachN mit der Hilfsmatrix zu
+        //Erzeuge Matrix xZu und weise ihr das Ergebnis der Multiplikation von xz mit der Hilfsmatrix zu
         Matrix xZu = MatrixOperations.multiply(xz, hilfsmatrix);
 
         //Erzeuge Matrix zXu und weise ihr die Inverse von xZu zu
         Matrix zXu = MatrixOperations.inverse(xZu);
 
-        //Rückgabe von Z,x bzw. das Ergebnis der Multiplikation der Hilfsmatrix mit zXu
+        //Rückgabe von zx
         return MatrixOperations.multiply(hilfsmatrix, zXu);
     }
 
     /**
-     * Methode zur Berechnung der Ableitung der Formfunktion nach globalen Koordinaten
+     * Methode zur Berechnung von sx = Ableitung der Formfunktionen nach globalen Koordinaten
      * @param zx, Ergebnis der zuvor berechneten Methode
      * @param zWerte, zWerte = normalisierte Koordinaten von einem beliebigen Punkt
-     * @return Ergebnis der Multiplikation der quadratisch analytisch abgeleiteten Formfunktion 
-     * mit dem Ergebnis der zuvor berechneten Methode
+     * @return sx = Ableitung der Formfunktionen nach den globalen Koordinaten
+     * Schritt 3 nach Übung 2
      */
     private static Matrix berechneSx(Matrix zx, Matrix zWerte) {
 
-    	//Erzeuge Matrix formfunktion und weise ihr die Erstellte Matrix aus der Klasse Dreieck2DQuadratisch zu
-        Matrix sQz = Dreieck2DQuadratisch.erstelleSQz(zWerte);
+    	//Erzeuge Matrix sqz und weise ihr das Ergebnis der Methode erstelleSqz zu
+        Matrix sqz = Dreieck2DQuadratisch.erstelleSqz(zWerte);
 
         /*
-         * Rückgabe von S,x bzw. das Ergebnisses der Multiplikation der quadratisch analytisch abgeleiteten 
-         * Formfunktion mit dem Ergebnis der zuvor berechneten Methode
+         * Rückgabe von sx
          */
-        return MatrixOperations.multiply(sQz, zx);
+        return MatrixOperations.multiply(sqz, zx);
     }
 }
